@@ -3,19 +3,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 
 public class Moteur {
 
-	String nomFichier = "mini.descr";
-	char meta;
-	ArrayList<Character> alphabetEntree; // vocabulaire d'entree
-	ArrayList<Character> sorties;
-	char nbEtats;
-	ArrayList<Character> etatInit;
-	ArrayList<Character> F;
-	ArrayList<Character> T;
+	private String nomFichier = "mini.descr"; //fichier .descr qui sera lu pour la création de l'automate
+	private char meta; //meta caractere pour arreter la saisie
+	private ArrayList<Character> alphabetEntree; //liste du vocabulaire d'entree
+	private ArrayList<Character> sorties; //liste du vocabulaire de sortie
+	private char nbEtats; //nombre d'états dans l'AEF
+	private ArrayList<Character> etatInit; //liste des etats init de l'AEF
+	private ArrayList<Character> etatsAcceptants; //liste des etats acceptant
+	private ArrayList<Character> transitions; //liste des transitions
 
 	// constructeur
 	public Moteur() {
@@ -26,7 +25,6 @@ public class Moteur {
 		if (etatInit.size() == 0) {
 			etatInit.add('0');
 		}
-
 	}
 
 	public void lectureFichier(String fichier) {
@@ -87,11 +85,23 @@ public class Moteur {
 		}
 
 	}
+	
+	//Ensemble des méthodes d'affichage des éléments constituant l'AEF
+	public void afficheMetaChar(){
+		System.out.println("Meta caractere : " + this.meta);
+	}
 
 	public void afficheAlphabetEntree() {
 		for (int i = 0; i < this.alphabetEntree.size(); i++) {
 			System.out.println("Alphabet d'entree : "
 					+ this.alphabetEntree.get(i));
+		}
+	}
+	
+	public void afficheAlphabetSotie(){
+		for (int i = 0; i < this.sorties.size(); i++) {
+			System.out.println("Alphabet de sortie : "
+					+ this.sorties.get(i));
 		}
 	}
 
@@ -106,18 +116,57 @@ public class Moteur {
 		}
 	}
 	
-	public void traitementMoteur(String entrees) throws IOException {
-		
-		int tailleEntree = entrees.length(), i = 0;
-		
-		StringReader strRead = new StringReader(entrees);
-		strRead.read();
-		
-		while (i != tailleEntree) {
-			
-			if (this.alphabetEntree.contains(strRead)) {
-				
-			}
+	public void afficheEtatsAcceptants(){
+		for (int i = 0; i < this.etatsAcceptants.size(); i++) {
+			System.out.println("Etat(s) acceptant(s) : "
+					+ this.etatsAcceptants.get(i));
 		}
 	}
+	
+	public void afficheTransitions(){
+		for (int i = 0; i < this.transitions.size(); i++) {
+			System.out.println("Transition(s) : "
+					+ this.transitions.get(i));
+		}
+	}
+
+	//Ensemble des getters sur les variables d'instance du moteur AEF
+	public ArrayList<Character> getAlphabetEntree() {
+		return this.alphabetEntree;
+	}
+
+	public String getNomFichier() {
+		return nomFichier;
+	}
+
+
+	public char getMeta() {
+		return meta;
+	}
+
+
+	public ArrayList<Character> getSorties() {
+		return sorties;
+	}
+
+
+	public char getNbEtats() {
+		return nbEtats;
+	}
+
+
+	public ArrayList<Character> getEtatInit() {
+		return etatInit;
+	}
+
+
+	public ArrayList<Character> getEtatsAcceptants() {
+		return etatsAcceptants;
+	}
+
+	public ArrayList<Character> getTransitions() {
+		return transitions;
+	}
+
+
 }
